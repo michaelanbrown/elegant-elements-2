@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
     validates :shipping, presence: true, numericality: { equal_to: 7.00 }
     validates :status, presence: true
-    validate :order_cannot_update, on: :update
+    validate :order_cannot_update, on: [:update, :destroy]
     validate :in_progress
 
     private

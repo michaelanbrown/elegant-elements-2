@@ -2,6 +2,8 @@ class ProductOrder < ApplicationRecord
     belongs_to :product
     belongs_to :order
 
+    validates :quantity, numericality: { greater_than: 0 }
+    validates :personalization, presence: true
     validate :word_personalization
     validate :phrase_personalization
     validate :date_personalization

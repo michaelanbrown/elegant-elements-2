@@ -24,8 +24,8 @@ private
     @order = Order.find(params[:id])
   end
 
-  def find_customization
-    @customization = Customization.find(params[:id])
+  def find_product_order
+    @product_order = ProductOrder.find(params[:id])
   end
 
   def find_address

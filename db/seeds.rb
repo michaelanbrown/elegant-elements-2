@@ -25,3 +25,12 @@ p6 = Product.create!(jewelry: "Bracelet with a Date", price: 11.00, stripe_key: 
 p7 = Product.create!(jewelry: "Keychain with a Phrase", price: 12.00, stripe_key: "price_1NMenLK92FCM7B9Evqz9gwyi")
 p8 = Product.create!(jewelry: "Keychain with a Word", price: 10.00, stripe_key: "price_1NMeneK92FCM7B9Eh0250qlD")
 p9 = Product.create!(jewelry: "Keychain with a Date", price: 10.00, stripe_key: "price_1NMenxK92FCM7B9EDMnruaBL")
+
+o1 = Order.create!(customer_id: c1.id, address_id: a1.id, total: 20.00, shipping: 7.00, status: "fulfilled")
+o2 = Order.create!(customer_id: c2.id, address_id: a2.id, total: 19.00, shipping: 7.00, status: "canceled")
+o3 = Order.create!(customer_id: c3.id, address_id: a3.id, total: 39.00, shipping: 7.00, status: "fulfilled")
+
+po1 = ProductOrder.create!(personalization: "Brave", quantity: 1, order_id: o1.id, product_id: p2.id)
+po2 = ProductOrder.create!(personalization: "You are strong", quantity: 2, order_id: o2.id, product_id: p4.id)
+po3 = ProductOrder.create!(personalization: "01.26.2021", quantity: 1, order_id: o3.id, product_id: p3.id)
+po4 = ProductOrder.create!(personalization: "01.26.2021", quantity: 1, order_id: o3.id, product_id: p9.id)

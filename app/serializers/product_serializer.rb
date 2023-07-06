@@ -1,3 +1,3 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :jewelry, :price, :stripe_key
 end

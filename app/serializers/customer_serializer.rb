@@ -1,20 +1,18 @@
 class CustomerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :username, :password_digest, :products, :in_progress_product_count, :admin
+  attributes :id, :name, :email, :username, :password_digest, :personalizations, :admin, :orders
 
   has_many :orders
   has_many :addresses
 
-  def products
-    @order_ids = object.orders.map{ |o| o.id }
-    @product_arrays = @order_ids.map { |o| Product.where(order_id: o)}
-    @prods = []
-    @product_arrays.map{|p| p.map{|p| @prods.push(p)}}
-    @prods.each{|p| p.jewelry = p.jewelry.capitalize}.uniq{|p| p.jewelry && p.customization.personalization}
+  def personalizations
+    @personalizations = []
+    object.orders.each{ |o| @personalizations.push(ProductOrder.where(order_id: o.id)) }
+    @personalizations.flatten
   end
 
-  def in_progress_product_count
-    @in_progess_order = Order.where(status: "in progress", customer_id: object.id)
-    @in_progess_order.map{ |o| o.id }
-    Product.where(order_id: @in_progess_order).count
-  end
+  # def in_progress_product_count
+  #   @in_progess_order = Order.where(status: "in progress", customer_id: object.id)
+  #   @in_progess_order.map{ |o| o.id }
+  #   Product.where(order_id: @in_progess_order).count
+  # end
 end

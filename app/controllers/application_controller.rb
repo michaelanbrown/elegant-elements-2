@@ -38,6 +38,11 @@ private
     render json: { errors: "Not authorized" }, status: :unauthorized unless permitted
   end
 
+  def authorize_customer_on_address
+    find_address
+    permitted = @address.customer.id == @current_customer.id
+    render json: { errors: "Not authorized" }, status: :unauthorized unless permitted
+  end
 
   def render_unprocessable_entity_response(exception)
     render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity

@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
     before_action :find_address, only: [:show, :update]
-    before_action :authorize_customer_on_address, only: [:update, :destroy]
+    before_action :authorize_customer_on_address, only: [:update]
 
     def index 
         render json: Address.all, status: :ok

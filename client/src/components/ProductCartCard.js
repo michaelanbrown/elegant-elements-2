@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../App.css'
+import { UserContext } from './context/User';
 
 function ProductCartCard({ product_order, products, order, setOrder, custProducts, setCustProducts, customizations, orderTotalAddition, setOrderTotalAddition, productCount, setProductCount, orders, setOrders }) {
+    const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const [keepChanges, setKeepChanges] = useState(false)
     const [currentProduct, setCurrentProduct] = useState(products.filter(product => product_order.product_id === product.id)[0])
     const [errors, setErrors] = useState([])
@@ -35,7 +37,14 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
             }
         })
         setOrder(deletingProductOrder)
+        const deletingProductOrderfromCustomer = currentCustomer.product_orders.filter((prod) => {
+            if (prod.id !== product_order.id) {
+                return product_order
+            }
+        })
+        setCurrentCustomer({...currentCustomer, product_orders: deletingProductOrderfromCustomer})
     }
+
 
     function deleteProduct() {
         fetch(`product_orders/${product_order.id}`, {

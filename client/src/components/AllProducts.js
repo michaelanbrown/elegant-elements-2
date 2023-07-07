@@ -71,16 +71,18 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                             body:JSON.stringify(customForm)
                         }).then(res => {
                             if (res.ok) {
-                                res.json().then(product => {
+                                res.json().then(productOrder => {
                                     setProductCount(productCount + 1)
+                                    setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                     setOrder({...order,
                                         id: newOrder.id,
                                         products: [...order.products, product],
-                                        total: order.total + (product.price * customForm.quantity)})
+                                        product_orders: [...order.product_orders, productOrder],
+                                        total: order.total + (productOrder.price * customForm.quantity)})
                                         navigate(`/cart`)
                                 })
                             } else {
-                                res.json().then(json => console.log(json))
+                                res.json().then(json => setErrors([...errors, json.errors]))
                             }
                         })})
                 } else {
@@ -92,6 +94,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                         if (res.ok) {
                             res.json().then(productOrder => {
                                 setProductCount(productCount + 1)
+                                setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                 setOrder({...order,
                                     id: orderId,
                                     products: [...order.products, product],
@@ -100,7 +103,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                                     navigate(`/cart`)
                             }) 
                         } else {
-                            res.json().then(json => console.log(json))
+                            res.json().then(json => setErrors([...errors, json.errors]))
                         }
                     })
                 }})

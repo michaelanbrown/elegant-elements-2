@@ -1,13 +1,11 @@
 class CustomerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :username, :password_digest, :personalizations, :in_progress_product_count, :admin, :orders
+  attributes :id, :name, :email, :username, :password_digest, :product_orders, :in_progress_product_count, :admin, :orders
 
   has_many :orders
   has_many :addresses
 
-  def personalizations
-    @personalizations = []
-    object.orders.each{ |o| @personalizations.push(ProductOrder.where(order_id: o.id)) }
-    @personalizations.flatten
+  def product_orders
+    object.orders.map{|o| o.product_orders}.flatten.uniq
   end
 
   def in_progress_product_count

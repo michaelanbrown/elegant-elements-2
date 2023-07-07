@@ -15,6 +15,7 @@ import Cancel from './components/Cancel';
 import CreateAddress from './components/CreateAddress';
 import { loadStripe } from '@stripe/stripe-js';
 import AllOrders from './components/AllOrders';
+import PrevPersonalizations from './components/PrevPersonalizations';
 
 function App() {
   const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
@@ -27,7 +28,6 @@ function App() {
   const [order, setOrder] = useState([])
   const [products, setProducts] = useState([])
   const [custProducts, setCustProducts] = useState([])
-  const [progressOrder, setProgressOrder] = useState(false)
   const [custAddresses, setCustAddresses] = useState([])
   const [orderId, setOrderId] = useState(null)
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY)
@@ -48,7 +48,6 @@ function App() {
           setProductCount(customer.in_progress_product_count)
           const cartOrder = customer.orders ? customer.orders.map(order => {
             if (order.status === "in progress") {
-                setProgressOrder(order)
                 setOrderId(order.id)
                 return order
             } else {
@@ -177,6 +176,7 @@ function updateOrders(updatedOrder) {
         <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder}/>} />
         <Route path="/products" element={<Products products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
+        <Route path="/previous-personalizations" element={<PrevPersonalizations orders={orders} productOrders={productOrders} products={products}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />

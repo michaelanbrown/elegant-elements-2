@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../App.css'
-import { UserContext } from './context/User';
 
 function Address({ address, addresses, setAddresses, custAddresses, setCustAddresses }) {
-    const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const [active, setActive] = useState(false)
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({

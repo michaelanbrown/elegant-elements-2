@@ -70,7 +70,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
         })
         setOrders(updatingOrders)
     }
-
+    
     // const checkout = async(e) => {
     //     e.preventDefault()
     //     const res = await fetch('/checkout', {
@@ -123,7 +123,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
                 updateOrders(order)
                 })
             } else {
-              res.json().then(json => console.log(json.errors))
+              res.json().then(json => setErrors([json.errors]))
             }
     })}
 

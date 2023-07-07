@@ -7,7 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import CreateAddress from './CreateAddress';
 
 function Account({ addresses, setAddresses, custAddresses, setCustAddresses }) {
-    const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
+    const { currentCustomer } = useContext(UserContext);
     const [addressForm, setAddressForm] = useState('')
 
     function handleChange(e) {

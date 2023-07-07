@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :find_order, only: [:show, :update]
+    before_action :find_order, only: [:show, :update, :destroy]
     before_action :authorize_customer_on_order, only: [:show, :update]
 
     def index 

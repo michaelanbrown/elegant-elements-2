@@ -18,7 +18,6 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
         const identification = order && order[0] ? setOrderId(order[0].id) : null
         const orderSetting = order && order[0] ? setOrder(order[0]) : null
     }, [order])
-    console.log(order)
 
     const CheckoutForm = () => {
         const orderProducts = []
@@ -117,6 +116,15 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
     //         }
     // })}
 
+    function deletingOrder(order) {
+        const deletingOrder = orders.filter((ord) => {
+            if (ord.id !== order.id) {
+                return order
+            }
+        })
+        setOrders(deletingOrder)
+    }
+
         function orderAddressUpdate() {
         fetch(`orders/${order.id}`, {
             method: "PATCH",
@@ -135,8 +143,21 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
               res.json().then(json => setErrors([json.errors]))
             }
     })}
-    console.log(order)
 
+    function deleteOrder() {
+        fetch(`orders/${order.id}`, {
+            method:"DELETE"
+        })
+        .then(res =>{
+          if(res.ok){
+            setProductCount(0)
+            setOrder([])
+            deletingOrder(order)
+          }
+        })
+    }
+
+console.log(orders)
     return (
         order.products && productCount !== 0 ?
         <div>
@@ -160,6 +181,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
                     <Elements stripe={stripePromise}>    
                         <CheckoutForm/>
                     </Elements>
+                    <button onClick={deleteOrder}>Delete Entire Cart</button>
                     </div> : <h1>Current Cart is Empty</h1>
     )
 }

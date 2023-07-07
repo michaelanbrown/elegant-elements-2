@@ -146,9 +146,9 @@ function getOrders() {
     }).then((res) => {
         if(res.ok){
           res.json()
-          .then(order => {
+          .then(updatedOrder => {
             setOrder([])
-            updateOrders(order)
+            updateOrders(updatedOrder)
             setProductCount(0)
             })
         } else {
@@ -156,11 +156,12 @@ function getOrders() {
         }
 })}
 
-function updateOrders(updatedOrder) {
+
+function updateOrders(orderToUpdate) {
   const updatingOrders = orders.map((currentOrder) => {
       if (currentOrder.id === orderId) {
-          return updatedOrder
-      } else {
+          return orderToUpdate
+      } else if (currentOrder.id !== orderId){
           return currentOrder
       }
   })

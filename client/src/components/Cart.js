@@ -18,6 +18,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
         const identification = order && order[0] ? setOrderId(order[0].id) : null
         const orderSetting = order && order[0] ? setOrder(order[0]) : null
     }, [order])
+    console.log(order)
 
     const CheckoutForm = () => {
         const orderProducts = []
@@ -28,7 +29,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
             }
             orderProducts.push(prod)
         }) : null
-        console.log(orderProducts)
+        
         const stripe = useStripe();
 
         const checkout = async(e) => {
@@ -134,6 +135,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
               res.json().then(json => setErrors([json.errors]))
             }
     })}
+    console.log(order)
 
     return (
         order.products && productCount !== 0 ?

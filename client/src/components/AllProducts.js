@@ -74,12 +74,23 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                                 res.json().then(productOrder => {
                                     setProductCount(productCount + 1)
                                     setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
-                                    setOrder({...order,
-                                        id: newOrder.id,
-                                        products: [...order.products, product],
-                                        product_orders: [...order.product_orders, productOrder],
-                                        total: order.total + (productOrder.price * customForm.quantity)})
-                                        navigate(`/cart`)
+                                    if (order.products) {
+                                        setOrder({...order,
+                                            id: newOrder.id,
+                                            products: [...order.products, product],
+                                            shipping: 7.00,
+                                            product_orders: [...order.product_orders, productOrder],
+                                            total: newOrder.total + (product.price * customForm.quantity)})
+                                            navigate(`/cart`)
+                                    } else {
+                                        setOrder({...order,
+                                            id: newOrder.id,
+                                            products: [product],
+                                            shipping: 7.00,
+                                            product_orders: [productOrder],
+                                            total: newOrder.total + (product.price * customForm.quantity)})
+                                            navigate(`/cart`)
+                                    }
                                 })
                             } else {
                                 res.json().then(json => setErrors([...errors, json.errors]))

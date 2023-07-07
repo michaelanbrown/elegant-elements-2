@@ -25,7 +25,6 @@ function App() {
   const [orders, setOrders] = useState([])
   const [productCount, setProductCount] = useState(currentCustomer.in_progress_product_count)
   const [order, setOrder] = useState([])
-  const [orderProducts, setOrderProducts] = useState([])
   const [products, setProducts] = useState([])
   const [custProducts, setCustProducts] = useState([])
   const [progressOrder, setProgressOrder] = useState(false)
@@ -63,7 +62,6 @@ function App() {
                 setOrders(orders)
                 setOrder(orders.filter(order => {
                   if (order.status === "in progress" && order.customer_id === customer.id) {
-                    setOrderProducts(order.products)
                       return order
                   } else {
                       return null
@@ -176,8 +174,8 @@ function updateOrders(updatedOrder) {
       <Routes>
         <Route path="/" element={<Welcome/>} />
         <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders}/>} />
-        <Route path="/login" element={<Login setOrderProducts={setOrderProducts} setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder}/>} />
-        <Route path="/products" element={<Products products={products}/>} />
+        <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder}/>} />
+        <Route path="/products" element={<Products products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}

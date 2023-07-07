@@ -3,16 +3,17 @@ import '../App.css'
 import { UserContext } from './context/User';
 import { useNavigate } from 'react-router-dom';
 
-function AllProducts({ product }) {
+function AllProducts({ product, productCount, setProductCount, order, setOrder, orders, setOrders }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const navigate = useNavigate();
     const [viewOrderForm, setViewOrderForm] = useState(false)
     const [errors, setErrors] = useState(false)
     const [customForm, setCustomForm] = useState({
         personalization: "",
-        quantity: 0
+        quantity: 1,
+        product_id: product.id
     })
-    const {personalization, quantity} = customForm
+    const {personalization, quantity, product_id} = customForm
     
     function onViewClick(){
         setViewOrderForm(!viewOrderForm)
@@ -25,6 +26,54 @@ function AllProducts({ product }) {
         });
     }
 
+    function downClick() {
+        if (quantity > 1) {
+            setCustomForm({
+                ...customForm,
+                quantity: quantity - 1
+            })
+        }
+    }
+
+    function upClick() {
+            setCustomForm({
+                ...customForm,
+                quantity: quantity + 1
+            })
+    }
+
+    function onOrder(e){
+        e.preventDefault()
+        const newOrder = {
+            total: 7.00
+        }
+        fetch("/orders",{
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(newOrder)
+          })
+          .then(res => {
+              if(res.ok){
+                  res.json().then(newOrder => {
+                      setOrders([...orders, newOrder])
+                      setOrder(newOrder)
+                            })
+                        }
+                        fetch("/product_orders", {
+                            method: 'POST',
+                            headers:{'Content-Type': 'application/json'},
+                            body:JSON.stringify(customForm)
+                        }).then(res => {
+                            if (res.ok) {
+                                res.json().then(
+                                    setProductCount(productCount + 1)
+                                )
+                            }
+                        })
+                })
+            }
+            console.log(customForm)
+
     return (
         <div>
             <div className="productcontainer">
@@ -34,7 +83,7 @@ function AllProducts({ product }) {
                 <br/>
                 {viewOrderForm === false && currentCustomer ? <button onClick={onViewClick}>Add to Order</button> : null}
                 {viewOrderForm ? <div>
-                    <form>
+                    <form onSubmit={onOrder}>
                     <br/>
                         Personalization:
                         <br/>
@@ -43,9 +92,12 @@ function AllProducts({ product }) {
                         <br/>
                         Quantity:
                         <br/>
-                        <input type="button" value="-" />
+                        <input type="button" value="-" onClick={downClick}/>
                         {" "}{quantity}{" "}
-                        <input type="button" value="+" />
+                        <input type="button" value="+" onClick={upClick}/>
+                        <br/>
+                        <br/>
+                        <input type="submit" value="Submit"/>
                     </form>
                     <br/>
                 </div> : null}

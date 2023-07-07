@@ -1,18 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css'
-import { UserContext } from './context/User';
 import ProductCartCard from './ProductCartCard';
 import { Elements, useStripe } from '@stripe/react-stripe-js';
 
 function Cart({ stripePromise, formData, setFormData, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, customizations, productCount, setProductCount }) {
-    const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
     const [errors, setErrors] = useState(false)
     const [orderId, setOrderId] = useState(null)
-    // const [formData, setFormData] = useState({
-    //     address_id: "",
-    //     status: "submitted" 
-    // })
     const [addressData, setAddressData] = useState({
         address_id: ""
     })

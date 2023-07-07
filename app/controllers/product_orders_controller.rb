@@ -1,4 +1,4 @@
-class CustomizationsController < ApplicationController
+class ProductOrdersController < ApplicationController
     before_action :find_product_order, only: [:show, :update, :destroy]
 
     def index 

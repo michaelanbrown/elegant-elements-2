@@ -90,7 +90,7 @@ function Address({ address, addresses, setAddresses, custAddresses, setCustAddre
     })}
 
     return(
-        active == false ? <>
+        active === false ? <>
             <div className='address'>
                 <br/>
                 {name}

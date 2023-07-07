@@ -70,7 +70,7 @@ function AllOrders({ orders, setOrders, products }) {
                 {fulfilledOrderMap}
             </div> : null}
             {search === 'fulfilled' && fulfilledOrderMap.length === 0 ? <p>You don't have any fulfilled orders.</p> : null}
-            {submittedOrderMap.length !== 0 && (search === '' || search == 'submitted') ? <div>
+            {submittedOrderMap.length !== 0 && (search === '' || search === 'submitted') ? <div>
                 <br/>
                 <br/>
                 Submitted Order(s):

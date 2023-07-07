@@ -14,7 +14,7 @@ function OrderCard({ orders, setOrders, order, products }) {
     })
 
     const currentProducts = products.filter(product => {
-        if (product.order_id == order.id) {
+        if (product.order_id === order.id) {
             return product
         } else {
             return null
@@ -90,7 +90,7 @@ function OrderCard({ orders, setOrders, order, products }) {
             Shipping: ${order.shipping}
             <br/>
             Total Cost: ${order.total}
-            {order.status == "submitted" ? <div>
+            {order.status === "submitted" ? <div>
             <br/>
             <br/>
             <button onClick={orderUpdate}>Cancel Order</button></div> : null}

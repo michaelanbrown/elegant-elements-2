@@ -7,7 +7,6 @@ import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Account from './components/Account';
-import PreviousProducts from './components/PreviousProducts';
 import Products from './components/Products';
 import PreviousOrders from './components/PreviousOrders';
 import Cart from './components/Cart';
@@ -22,7 +21,7 @@ function App() {
   const [customers, setCustomers] = useState([])
   const [addresses, setAddresses] = useState([])
   const [errors, setErrors] = useState([])
-  const [customizations, setCustomizations] = useState([])
+  const [productOrders, setProductOrders] = useState([])
   const [orders, setOrders] = useState([])
   const [productCount, setProductCount] = useState(currentCustomer.in_progress_product_count)
   const [order, setOrder] = useState([])
@@ -35,6 +34,7 @@ function App() {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY)
 
   useEffect(() => {
+    getProducts();
     fetch("/authorized_user")
     .then((res) => {
       if (res.ok) {
@@ -44,12 +44,11 @@ function App() {
           setCustProducts(customer.products)
           getCustomers();
           getAddresses();
-          getCustomizations();
-          getProducts();
+          getProductOrders();
           setCustAddresses(customer.addresses)
           setProductCount(customer.in_progress_product_count)
           const cartOrder = customer.orders ? customer.orders.map(order => {
-            if (order.status == "in progress") {
+            if (order.status === "in progress") {
                 setProgressOrder(order)
                 setOrderId(order.id)
                 return order
@@ -63,7 +62,7 @@ function App() {
               res.json().then(orders => {
                 setOrders(orders)
                 setOrder(orders.filter(order => {
-                  if (order.status == "in progress" && order.customer_id == customer.id) {
+                  if (order.status === "in progress" && order.customer_id === customer.id) {
                     setOrderProducts(order.products)
                       return order
                   } else {
@@ -113,11 +112,11 @@ function getOrders() {
     })
   }
 
-  function getCustomizations() {
-    fetch("/customizations")
+  function getProductOrders() {
+    fetch("/product_orders")
     .then((res) => {
       if(res.ok){
-        res.json().then(setCustomizations)
+        res.json().then(setProductOrders)
       } else {
         res.json().then(json => setErrors([json.error]))
       }
@@ -176,15 +175,14 @@ function updateOrders(updatedOrder) {
       <Header productCount={productCount} custAddresses={custAddresses}/>
       <Routes>
         <Route path="/" element={<Welcome/>} />
-        <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getCustomizations={getCustomizations} getOrders={getOrders}/>} />
-        <Route path="/login" element={<Login setOrderProducts={setOrderProducts} setCustAddresses={setCustAddresses} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getCustomizations={getCustomizations} getOrders={getOrders} setOrder={setOrder}/>} />
-        <Route path="/products" element={<Products customizations={customizations} setCustomizations={setCustomizations} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productCount={productCount} setProductCount={setProductCount}/>} />
+        <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders}/>} />
+        <Route path="/login" element={<Login setOrderProducts={setOrderProducts} setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder}/>} />
+        <Route path="/products" element={<Products products={products}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
-        <Route path="/previous-products" element={<PreviousProducts orderProducts={orderProducts} custProducts={custProducts} order={order} setOrder={setOrder} customizations={customizations} orders={orders} setOrders={setOrders} productCount={productCount} setProductCount={setProductCount}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />
-        <Route path="/cart" element={<Cart stripePromise={stripePromise} formData={formData} setFormData={setFormData} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} customizations={customizations} setCustomizations={setCustomizations} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
+        <Route path="/cart" element={<Cart stripePromise={stripePromise} formData={formData} setFormData={setFormData} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
         <Route path="/success" element={<Success orderId={orderId} orderUpdate={orderUpdate}/>} />
         <Route path="/cancel" element={<Cancel/>} />
       </Routes>

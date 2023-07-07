@@ -3,7 +3,7 @@ import '../App.css'
 import ProductCartCard from './ProductCartCard';
 import { Elements, useStripe } from '@stripe/react-stripe-js';
 
-function Cart({ stripePromise, formData, setFormData, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, customizations, productCount, setProductCount }) {
+function Cart({ stripePromise, formData, setFormData, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
     const [errors, setErrors] = useState(false)
     const [orderId, setOrderId] = useState(null)
@@ -47,7 +47,7 @@ function Cart({ stripePromise, formData, setFormData, custAddresses, order, setO
         const orderSetting = order && order[0] ? setOrder(order[0]) : null
     }, [order])
 
-    const productMap = order.products && order ? order.products.map(product => <ProductCartCard order={order} setOrder={setOrder} custProducts={custProducts} setCustProducts={setCustProducts} product={product} key={product.id} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} customizations={customizations} orderTotalAddition={orderTotalAddition} setOrderTotalAddition={setOrderTotalAddition}/>) : null
+    const productMap = order.products && order ? order.products.map(product => <ProductCartCard order={order} setOrder={setOrder} custProducts={custProducts} setCustProducts={setCustProducts} product={product} key={product.id} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} orderTotalAddition={orderTotalAddition} setOrderTotalAddition={setOrderTotalAddition}/>) : null
 
     const addressOptions = custAddresses ? custAddresses.map(option => {
         return (<option id="addressSelected" className="addressOption" value={option.id} key={option.id}>{option.name}{" "}-{" "}{option.street}{" "}{option.unit ? option.unit : null},{" "}{option.city}, {option.state} {option.zip}</option>)

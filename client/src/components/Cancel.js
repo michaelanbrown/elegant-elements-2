@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-function Cancel({ setSuccess }) {
+function Cancel({ }) {
 
   return (
     <div>

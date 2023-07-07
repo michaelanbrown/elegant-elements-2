@@ -5,7 +5,8 @@ class CustomerSerializer < ActiveModel::Serializer
   has_many :addresses
 
   def product_orders
-    object.orders.map{|o| o.product_orders}.flatten.uniq
+    @product_orders = object.orders.map{|o| o.product_orders}.flatten
+    @product_orders.uniq{|po| po.personalization}
   end
 
   def in_progress_product_count

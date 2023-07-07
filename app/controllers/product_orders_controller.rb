@@ -27,7 +27,7 @@ class ProductOrdersController < ApplicationController
     private
 
     def product_order_params
-        params.permit(:personalization, :quantity, :product_id).merge(order_id: Order.where(status == "in progress" && customer_id == @current_customer.id))
+        params.permit(:personalization, :quantity, :product_id).merge(order_id: Order.find_by(status: "in progress", customer_id: current_customer.id).id)
     end
 
     def update_product_order_params

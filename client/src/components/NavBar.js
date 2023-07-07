@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from './context/User';
 
-export default function NavBar ({ productCount, custAddresses })  {
+export default function NavBar ({ productCount, setProductCount, custAddresses })  {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const navigate = useNavigate();
     const handleLogOut = () => {
@@ -12,6 +12,7 @@ export default function NavBar ({ productCount, custAddresses })  {
         })
         .then(res =>{
           if(res.ok){
+            setProductCount(0)
             setCurrentCustomer(false)
             navigate(`/`)
           }

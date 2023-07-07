@@ -170,11 +170,11 @@ function updateOrders(updatedOrder) {
 
   return (
     <main>
-      <Header productCount={productCount} custAddresses={custAddresses}/>
+      <Header productCount={productCount} setProductCount={setProductCount} custAddresses={custAddresses}/>
       <Routes>
         <Route path="/" element={<Welcome/>} />
         <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders}/>} />
-        <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder} setCustAddresses={setCustAddresses}/>} />
+        <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder} setOrders={setOrders} setCustAddresses={setCustAddresses}/>} />
         <Route path="/products" element={<Products products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
         <Route path="/previous-personalizations" element={<PrevPersonalizations productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import { UserContext } from './context/User';
 
-function Login({ setOrder, setOrderProducts, setCustAddresses, setCustProducts, setProductCount, getProducts, getCustomers, getAddresses, getProductOrders, getOrders }) {
+function Login({ setOrder, setOrders, setCustAddresses, setCustProducts, setProductCount, getProducts, getCustomers, getAddresses, getProductOrders, getOrders }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
 
     const [errors, setErrors] = useState([])
@@ -43,9 +43,9 @@ function Login({ setOrder, setOrderProducts, setCustAddresses, setCustProducts, 
                     .then((res) => {
                       if(res.ok){
                         res.json().then(orders => {
+                        setOrders(orders)
                           setOrder(orders.filter(order => {
                             if (order.status === "in progress" && order.customer_id === customer.id) {
-                              setOrderProducts(order.products)
                                 return order
                             } else {
                                 return null

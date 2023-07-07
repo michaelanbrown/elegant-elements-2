@@ -28,7 +28,6 @@ function ProductsList({ prodOrder, customerProductOrders, productCount, setProdu
         const orderSetting = order && order[0] ? setOrder(order[0]) : null
     }, [customerProductOrders])
     
-    console.log(customForm)
     function orderAgain() {
         const newOrder = {
             total: 7.00

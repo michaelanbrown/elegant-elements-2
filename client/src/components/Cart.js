@@ -14,8 +14,21 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
         stripe_key: "price_1NMgq2K92FCM7B9Ez1ZejOIO",
         quantity: 1
     }
+    useEffect(() => {
+        const identification = order && order[0] ? setOrderId(order[0].id) : null
+        const orderSetting = order && order[0] ? setOrder(order[0]) : null
+    }, [order])
 
     const CheckoutForm = () => {
+        const orderProducts = []
+        const orderFinalSetting = order.product_orders ? order.product_orders.map(prodOrder => {
+            const prod = {
+                stripe_key: products.filter(product => product.id === prodOrder.product_id)[0].stripe_key,
+                quantity: prodOrder.quantity
+            }
+            orderProducts.push(prod)
+        }) : null
+        console.log(orderProducts)
         const stripe = useStripe();
 
         const checkout = async(e) => {
@@ -25,7 +38,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({items: [...order.products, shippingStripe]})
+                body: JSON.stringify({items: [...orderProducts, shippingStripe]})
             })
             const json = await res.json();
             if (res.ok) {
@@ -41,11 +54,6 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
             </form>
         )
     }
-
-    useEffect(() => {
-        const identification = order && order[0] ? setOrderId(order[0].id) : null
-        const orderSetting = order && order[0] ? setOrder(order[0]) : null
-    }, [order])
 
     const productMap = order.product_orders && order ? order.product_orders.map(product_order => <ProductCartCard products={products} order={order} setOrder={setOrder} custProducts={custProducts} setCustProducts={setCustProducts} product_order={product_order} key={product_order.id} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} orderTotalAddition={orderTotalAddition} setOrderTotalAddition={setOrderTotalAddition}/>) : null
 

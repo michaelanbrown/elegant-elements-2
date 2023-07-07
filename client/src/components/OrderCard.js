@@ -13,7 +13,7 @@ function OrderCard({ orders, setOrders, order, products }) {
         status: "fulfilled"
     })
 
-    const productMap = order.product_orders ? order.product_orders.map(product_order => <OrderProductCard product_order={product_order} key={product_order.id}/>) : null
+    const productMap = order.product_orders ? order.product_orders.map(product_order => <OrderProductCard products={products} product_order={product_order} key={product_order.id}/>) : null
 
     function updateOrders(updatedOrder) {
         const updatingOrders = orders.map((currentOrder) => {

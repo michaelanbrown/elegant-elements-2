@@ -167,6 +167,7 @@ function updateOrders(updatedOrder) {
   setOrders(updatingOrders)
 }
 
+
   return (
     <main>
       <Header productCount={productCount} custAddresses={custAddresses}/>
@@ -176,7 +177,7 @@ function updateOrders(updatedOrder) {
         <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder}/>} />
         <Route path="/products" element={<Products products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
-        <Route path="/previous-personalizations" element={<PrevPersonalizations orders={orders} productOrders={productOrders} products={products}/>} />
+        <Route path="/previous-personalizations" element={<PrevPersonalizations productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />

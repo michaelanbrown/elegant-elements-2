@@ -13,15 +13,7 @@ function OrderCard({ orders, setOrders, order, products }) {
         status: "fulfilled"
     })
 
-    const currentProducts = products.filter(product => {
-        if (product.order_id === order.id) {
-            return product
-        } else {
-            return null
-        }
-    })
-
-    const productMap = currentProducts.map(product => <OrderProductCard product={product} key={product.id}/>)
+    const productMap = order.product_orders ? order.product_orders.map(product_order => <OrderProductCard product_order={product_order} key={product_order.id}/>) : null
 
     function updateOrders(updatedOrder) {
         const updatingOrders = orders.map((currentOrder) => {
@@ -73,6 +65,7 @@ function OrderCard({ orders, setOrders, order, products }) {
               res.json().then(json => setErrors([json.errors]))
             }
     })}
+    console.log(order)
 
     return (
         <div className='address'>

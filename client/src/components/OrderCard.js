@@ -65,7 +65,6 @@ function OrderCard({ orders, setOrders, order, products }) {
               res.json().then(json => setErrors([json.errors]))
             }
     })}
-    console.log(order)
 
     return (
         <div className='address'>

@@ -10,8 +10,6 @@ function OrderProductCard({ products, product_order }) {
         const settingProduct = product_order ? setProduct(products.filter(prod => prod.id === product_order.product_id)[0]) : null
     }, [product_order])
 
-    console.log(product)
-
     return (
         <div>
             {"("}{product_order.quantity}{")"} Custom Handstamped

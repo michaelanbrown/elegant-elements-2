@@ -148,7 +148,13 @@ function getOrders() {
           res.json()
           .then(updatedOrder => {
             setOrder([])
-            updateOrders(updatedOrder)
+            setOrders(orders.map(currentOrder => {
+              if (currentOrder.id === orderId) {
+                  return updatedOrder
+              } else if (currentOrder.id !== orderId){
+                  return currentOrder
+              }
+          }))
             setProductCount(0)
             })
         } else {
@@ -156,16 +162,16 @@ function getOrders() {
         }
 })}
 
-function updateOrders(updatedOrder) {
-  const updatingOrders = orders.map((currentOrder) => {
-      if (currentOrder.id === orderId) {
-          return updatedOrder
-      } else if (currentOrder.id !== orderId){
-          return currentOrder
-      }
-  })
-  setOrders(updatingOrders)
-}
+// function updateOrders(updatedOrder) {
+//   const updatingOrders = orders.map(currentOrder => {
+//       if (currentOrder.id === orderId) {
+//           return updatedOrder
+//       } else if (currentOrder.id !== orderId){
+//           return currentOrder
+//       }
+//   })
+//   setOrders(updatingOrders)
+// }
 
   return (
     <main>

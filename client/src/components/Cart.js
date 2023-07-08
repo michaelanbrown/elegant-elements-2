@@ -58,7 +58,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
     const productMap = order.product_orders && order ? order.product_orders.map(product_order => <ProductCartCard products={products} order={order} setOrder={setOrder} custProducts={custProducts} setCustProducts={setCustProducts} product_order={product_order} key={product_order.id} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} orderTotalAddition={orderTotalAddition} setOrderTotalAddition={setOrderTotalAddition}/>) : null
 
     const addressOptions = custAddresses ? custAddresses.map(option => {
-        return (<option id="addressSelected" className="addressOption" value={option.id} key={option.id}>{option.name}{" "}-{" "}{option.street}{" "}{option.unit ? option.unit : null},{" "}{option.city}, {option.state} {option.zip}</option>)
+        return (<option id="addressSelected" className="addressOption" value={option.id} key={option.id}>{option.name}{" "}-{" "}{option.street}{option.unit ? " " : null}{option.unit ? option.unit : null},{" "}{option.city}, {option.state} {option.zip}</option>)
     }) : null
 
     function handleTypeChange(e) {

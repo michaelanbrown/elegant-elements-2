@@ -13,9 +13,9 @@ function PrevPersonalizations({ order, setOrder, orders, setOrders, productCount
     const productOrderMap = customerProductOrders ? customerProductOrders.map(prodOrder => <ProductsList key={prodOrder.id} orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} setOrders={setOrders} prodOrder={prodOrder} customerProductOrders={customerProductOrders} orders={orders} products={products}/>) : null
 
   return (
-    <div>
+    currentCustomer.product_orders && currentCustomer.product_orders.length !== 0 ? <div>
         {productOrderMap}
-    </div>
+    </div> : <div>No previous personalizations.</div>
   );
 }
 

@@ -7,13 +7,12 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
 })
 
   useEffect(() => {
-   const functionCalling = orderId ? orderUpdate(orderId) : null
-  }, [orderId])
+   const functionCalling = orderId && orders.length !== 0 ? orderUpdate(orderId) : null
+  }, [orderId, orders.length])
 
   function updateOrders(updatedOrder) {
     const updatingOrders = orders.map(currentOrder => {
         if (currentOrder.id === orderId) {
-          console.log(updatedOrder)
             return updatedOrder
         } else {
             return currentOrder
@@ -21,6 +20,7 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
     })
     setOrders(updatingOrders)
 }
+console.log(orders)
 
   function orderUpdate() {
     fetch(`orders/${orderId}`, {

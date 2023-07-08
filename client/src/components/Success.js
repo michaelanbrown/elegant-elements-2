@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 function Success({ orderUpdate, orderId }) {
 
   useEffect(() => {
-    orderUpdate(orderId)
+    const functionCall = orderId ? orderUpdate(orderId) : null
   }, [orderId])
 
   return (

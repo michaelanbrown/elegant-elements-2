@@ -3,7 +3,7 @@ import '../App.css'
 import ProductCartCard from './ProductCartCard';
 import { Elements, useStripe } from '@stripe/react-stripe-js';
 
-function Cart({ stripePromise, products, formData, setFormData, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
+function Cart({ stripePromise, products, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
     const [errors, setErrors] = useState(false)
     const [orderId, setOrderId] = useState(null)
@@ -62,8 +62,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
     }) : null
 
     function handleTypeChange(e) {
-        setFormData({
-            ...formData,
+        setAddressData({
             address_id: document.getElementById("addressSelected").value
         });
     }

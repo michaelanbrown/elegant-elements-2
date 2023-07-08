@@ -156,17 +156,16 @@ function getOrders() {
         }
 })}
 
-function updateOrders(orderToUpdate) {
+function updateOrders(updatedOrder) {
   const updatingOrders = orders.map((currentOrder) => {
       if (currentOrder.id === orderId) {
-          return orderToUpdate
+          return updatedOrder
       } else if (currentOrder.id !== orderId){
           return currentOrder
       }
   })
   setOrders(updatingOrders)
 }
-console.log(orderId)
 
   return (
     <main>
@@ -181,7 +180,7 @@ console.log(orderId)
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />
-        <Route path="/cart" element={<Cart products={products} stripePromise={stripePromise} formData={formData} setFormData={setFormData} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
+        <Route path="/cart" element={<Cart products={products} stripePromise={stripePromise} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
         <Route path="/success" element={<Success orderId={orderId} orderUpdate={orderUpdate}/>} />
         <Route path="/cancel" element={<Cancel/>} />
       </Routes>

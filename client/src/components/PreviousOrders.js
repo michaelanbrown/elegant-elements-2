@@ -18,6 +18,7 @@ function PreviousOrders({ orders, setOrders, products }) {
             }
         }))
     }, [orders])
+    console.log(orders)
 
     const canceledOrders = customerOrders.filter(order => {
         if(order.status === "canceled") {

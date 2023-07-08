@@ -1,10 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../App.css'
-import { UserContext } from './context/User';
 import { useNavigate } from 'react-router-dom';
 
 function CreateAddress({ addresses, setAddresses, custAddresses, setCustAddresses }){
-    const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const [errors, setErrors] = useState([])
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

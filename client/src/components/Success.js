@@ -1,11 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-
-function Success({ orderUpdate, orderId }) {
+function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
+  const [errors, setErrors] = useState([])
+  const [formData, setFormData] = useState({
+    status: "submitted" 
+})
 
   useEffect(() => {
-    const functionCall = orderId ? orderUpdate(orderId) : null
+    orderUpdate(orderId)
   }, [orderId])
+
+  function updateOrders(updatedOrder) {
+    const updatingOrders = orders.map((currentOrder) => {
+        if (currentOrder.id === orderId) {
+            return updatedOrder
+        } else {
+            return currentOrder
+        }
+    })
+    setOrders(updatingOrders)
+}
+
+  function orderUpdate() {
+    fetch(`orders/${orderId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type" : "application/json",
+            "Accept" : "application/json"
+        },
+        body: JSON.stringify(formData)
+    }).then((res) => {
+        if(res.ok){
+          res.json()
+          .then(updatedOrder => {
+            updateOrders(updatedOrder)
+            setProductCount(0)
+            setOrder([])
+            })
+        } else {
+          res.json().then(json => setErrors([json.errors]))
+        }
+})}
 
   return (
     <div>

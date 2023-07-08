@@ -64,7 +64,6 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                       setOrderId(newOrder.id)
                       setOrders([...orders, newOrder])
                       setOrder(newOrder)
-                      console.log(customForm)
                         fetch("/product_orders", {
                             method: 'POST',
                             headers:{'Content-Type': 'application/json'},

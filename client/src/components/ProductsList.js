@@ -52,6 +52,7 @@ function ProductsList({ prodOrder, orderId, setOrderId, customerProductOrders, p
                                     setProductCount(productCount + 1)
                                     setOrder({...order,
                                         id: newOrder.id,
+                                        shipping: 7.00,
                                         products: [product],
                                         product_orders: [productOrder],
                                         total: newOrder.total + (product.price * customForm.quantity)})

@@ -131,37 +131,6 @@ function getOrders() {
     })
   }
 
-  const [formData, setFormData] = useState({
-    status: "submitted" 
-})
-
-  function orderUpdate(orderId) {
-    fetch(`orders/${orderId}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type" : "application/json",
-            "Accept" : "application/json"
-        },
-        body: JSON.stringify(formData)
-    }).then((res) => {
-        if(res.ok){
-          res.json()
-          .then(updatedOrder => {
-            setOrder([])
-            setOrders(orders.map(currentOrder => {
-              if (currentOrder.id === orderId) {
-                  return updatedOrder
-              } else if (currentOrder.id !== orderId){
-                  return currentOrder
-              }
-          }))
-            setProductCount(0)
-            })
-        } else {
-          res.json().then(json => setErrors([json.errors]))
-        }
-})}
-
 // function updateOrders(updatedOrder) {
 //   const updatingOrders = orders.map(currentOrder => {
 //       if (currentOrder.id === orderId) {
@@ -187,7 +156,7 @@ function getOrders() {
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />
         <Route path="/cart" element={<Cart products={products} stripePromise={stripePromise} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
-        <Route path="/success" element={<Success orderId={orderId} orderUpdate={orderUpdate}/>} />
+        <Route path="/success" element={<Success setProductCount={setProductCount} setOrder={setOrder} orderId={orderId} orders={orders} setOrders={setOrders}/>} />
         <Route path="/cancel" element={<Cancel/>} />
       </Routes>
     </main>

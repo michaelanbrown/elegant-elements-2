@@ -113,43 +113,6 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         })
         setOrders(updatingOrders)
     }
-    
-    // const checkout = async(e) => {
-    //     e.preventDefault()
-    //     const res = await fetch('/checkout', {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({items: [...order.products, shippingStripe]})
-    //     })
-    //     const json = await res.json();
-    //     if (res.ok) {
-    //         window.location.assign(json.url)
-    //         orderAddressUpdate()
-    //     }
-    // }
-
-    // function orderUpdate() {
-    //     fetch(`orders/${order.id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type" : "application/json",
-    //             "Accept" : "application/json"
-    //         },
-    //         body: JSON.stringify(formData)
-    //     }).then((res) => {
-    //         if(res.ok){
-    //           res.json()
-    //           .then(order => {
-    //             setOrder([])
-    //             updateOrders(order)
-    //             setProductCount(0)
-    //             })
-    //         } else {
-    //           res.json().then(json => setErrors(json.errors))
-    //         }
-    // })}
 
     function deletingOrder(order) {
         const deletingOrder = orders.filter((ord) => {

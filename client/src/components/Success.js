@@ -7,12 +7,13 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
 })
 
   useEffect(() => {
-    orderUpdate(orderId)
+   const functionCalling = orderId ? orderUpdate(orderId) : null
   }, [orderId])
 
   function updateOrders(updatedOrder) {
-    const updatingOrders = orders.map((currentOrder) => {
+    const updatingOrders = orders.map(currentOrder => {
         if (currentOrder.id === orderId) {
+          console.log(updatedOrder)
             return updatedOrder
         } else {
             return currentOrder
@@ -32,8 +33,8 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
     }).then((res) => {
         if(res.ok){
           res.json()
-          .then(updatedOrder => {
-            updateOrders(updatedOrder)
+          .then(order => {
+            updateOrders(order)
             setProductCount(0)
             setOrder([])
             })

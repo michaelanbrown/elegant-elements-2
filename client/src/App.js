@@ -75,18 +75,6 @@ function App() {
     })
   },[])
 
-
-function getOrders() {
-  fetch("/orders")
-  .then((res) => {
-    if(res.ok){
-      res.json().then(setOrders)
-    } else {
-      res.json().then(json => setErrors([json.error]))
-    }
-  })
-}
-
   function getCustomers() {
     fetch("/customers")
     .then((res) => {
@@ -131,24 +119,13 @@ function getOrders() {
     })
   }
 
-// function updateOrders(updatedOrder) {
-//   const updatingOrders = orders.map(currentOrder => {
-//       if (currentOrder.id === orderId) {
-//           return updatedOrder
-//       } else if (currentOrder.id !== orderId){
-//           return currentOrder
-//       }
-//   })
-//   setOrders(updatingOrders)
-// }
-
   return (
     <main>
       <Header productCount={productCount} setProductCount={setProductCount} custAddresses={custAddresses}/>
       <Routes>
         <Route path="/" element={<Welcome/>} />
-        <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders}/>} />
-        <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder} setOrders={setOrders} setCustAddresses={setCustAddresses}/>} />
+        <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders}/>} />
+        <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} setOrder={setOrder} setOrders={setOrders} setCustAddresses={setCustAddresses}/>} />
         <Route path="/products" element={<Products setOrderId={setOrderId} orderId={orderId} products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
         <Route path="/previous-personalizations" element={<PrevPersonalizations orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />

@@ -19,42 +19,6 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         const orderSetting = order && order[0] ? setOrder(order[0]) : null
     }, [order])
 
-    // const CheckoutForm = () => {
-    //     const orderProducts = []
-    //     const orderFinalSetting = order.product_orders ? order.product_orders.map(prodOrder => {
-    //         const prod = {
-    //             stripe_key: products.filter(product => product.id === prodOrder.product_id)[0].stripe_key,
-    //             quantity: prodOrder.quantity
-    //         }
-    //         orderProducts.push(prod)
-    //     }) : null
-        
-    //     const stripe = useStripe();
-
-    //     const checkout = async(e) => {
-    //         e.preventDefault()
-    //         const res = await fetch('/checkout', {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({items: [...orderProducts, shippingStripe]})
-    //         })
-    //         const json = await res.json();
-    //         if (res.ok) {
-    //             window.location.assign(json.url)
-    //             orderAddressUpdate()
-    //         }
-    //     }
-    //     return (
-    //         <form onSubmit={checkout}>
-    //             <button type="submit" disabled={!stripe}>
-    //                 Submit Order
-    //             </button>
-    //         </form>
-    //     )
-    // }
-
     const CheckoutForm = () => {
         const orderProducts = []
         const orderFinalSetting = order.product_orders ? order.product_orders.map(prodOrder => {

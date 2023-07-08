@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import { UserContext } from './context/User';
 
-function Login({ setOrder, setOrders, setCustAddresses, setCustProducts, setProductCount, getProducts, getCustomers, getAddresses, getProductOrders, getOrders }) {
+function Login({ setOrder, setOrders, setCustAddresses, setCustProducts, setProductCount, getProducts, getCustomers, getAddresses, getProductOrders }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
 
     const [errors, setErrors] = useState([])
@@ -38,7 +38,6 @@ function Login({ setOrder, setOrders, setCustAddresses, setCustProducts, setProd
                     getProductOrders()
                     setCustAddresses(customer.addresses)
                     setCustProducts(customer.products)
-                    getOrders()
                     fetch("/orders")
                     .then((res) => {
                       if(res.ok){

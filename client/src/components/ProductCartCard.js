@@ -13,6 +13,17 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
     });
     const {quantity} = productUpdate
 
+    function updateOrderProductOrders(orderToUpdate) {
+        const updatingOrders = order.product_orders.map((currentProductOrder) => {
+            if (currentProductOrder.id === product_order.id) {
+                return orderToUpdate
+            } else if (currentProductOrder.id !== product_order.id){
+                return currentProductOrder
+            }
+        })
+        setOrder({...order, product_orders: updatingOrders, total: order.total + orderTotalAddition})
+      }
+
     function quantityUpdate() {
         fetch(`product_orders/${product_order.id}`, {
             method: "PATCH",
@@ -24,7 +35,11 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
         }).then((res) => {
             if(res.ok){
               res.json()
-              .then(setKeepChanges(false))
+              .then(updatedOrder => {
+                setKeepChanges(false)
+                updateOrderProductOrders(updatedOrder)
+                setOrderTotalAddition(0)
+            })
             } else {
               res.json().then(json => setErrors([json.errors]))
             }

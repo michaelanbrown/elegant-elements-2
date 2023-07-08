@@ -3,12 +3,11 @@ import '../App.css'
 import { UserContext } from './context/User';
 import { useNavigate } from 'react-router-dom';
 
-function AllProducts({ product, productCount, setProductCount, order, setOrder, orders, setOrders }) {
+function AllProducts({ product, productCount, setProductCount, order, setOrder, orderId, setOrderId, orders, setOrders }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const navigate = useNavigate();
     const [viewOrderForm, setViewOrderForm] = useState(false)
     const [errors, setErrors] = useState(false)
-    const [orderId, setOrderId] = useState(false)
     const [customForm, setCustomForm] = useState({
         personalization: "",
         quantity: 1,
@@ -62,6 +61,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
           .then(res => {
               if(res.ok){
                   res.json().then(newOrder => {
+                      setOrderId(newOrder.id)
                       setOrders([...orders, newOrder])
                       setOrder(newOrder)
                       console.log(customForm)
@@ -73,7 +73,6 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                             if (res.ok) {
                                 res.json().then(productOrder => {
                                     setProductCount(productCount + 1)
-                                    setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                     if (order.products) {
                                         setOrder({...order,
                                             id: newOrder.id,
@@ -105,7 +104,6 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                         if (res.ok) {
                             res.json().then(productOrder => {
                                 setProductCount(productCount + 1)
-                                setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                 setOrder({...order,
                                     id: orderId,
                                     products: [...order.products, product],

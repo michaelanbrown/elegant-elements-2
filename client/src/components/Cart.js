@@ -140,7 +140,7 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
                 updateOrders(order)
                 })
             } else {
-              res.json().then(json => setErrors([json.errors]))
+              res.json().then(json => console.log(json.errors))
             }
     })}
 
@@ -157,9 +157,8 @@ function Cart({ stripePromise, products, formData, setFormData, custAddresses, o
         })
     }
 
-console.log(orders)
     return (
-        order.products && productCount !== 0 ?
+        order.products ?
         <div>
                 <h1>Current Cart</h1>
                     { productMap ? productMap : null }

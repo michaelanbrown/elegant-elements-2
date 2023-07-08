@@ -3,13 +3,12 @@ import '../App.css'
 import { UserContext } from './context/User';
 import { useNavigate } from 'react-router-dom';
 
-function ProductsList({ prodOrder, customerProductOrders, productCount, setProductCount, order, setOrder, orders, setOrders, products }) {
+function ProductsList({ prodOrder, orderId, setOrderId, customerProductOrders, productCount, setProductCount, order, setOrder, orders, setOrders, products }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const navigate = useNavigate();
     const [custCustomization, setCustCustomization] = useState(false)
     const [productOrder, setProductOrder] = useState(null)
     const [product, setProduct] = useState([])
-    const [orderId, setOrderId] = useState(false)
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         total: 0
@@ -40,9 +39,9 @@ function ProductsList({ prodOrder, customerProductOrders, productCount, setProdu
           .then(res => {
               if(res.ok){
                   res.json().then(newOrder => {
+                    setOrderId(newOrder.id)
                       setOrders([...orders, newOrder])
                       setOrder(newOrder)
-                      console.log(customForm)
                         fetch("/product_orders", {
                             method: 'POST',
                             headers:{'Content-Type': 'application/json'},
@@ -51,12 +50,11 @@ function ProductsList({ prodOrder, customerProductOrders, productCount, setProdu
                             if (res.ok) {
                                 res.json().then(productOrder => {
                                     setProductCount(productCount + 1)
-                                    setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                     setOrder({...order,
                                         id: newOrder.id,
-                                        products: [...order.products, product],
-                                        product_orders: [...order.product_orders, productOrder],
-                                        total: order.total + (productOrder.price * customForm.quantity)})
+                                        products: [product],
+                                        product_orders: [productOrder],
+                                        total: newOrder.total + (product.price * customForm.quantity)})
                                         navigate(`/cart`)
                                 })
                             } else {
@@ -72,7 +70,6 @@ function ProductsList({ prodOrder, customerProductOrders, productCount, setProdu
                         if (res.ok) {
                             res.json().then(productOrder => {
                                 setProductCount(productCount + 1)
-                                setCurrentCustomer({...currentCustomer, product_orders: [...currentCustomer.product_orders, productOrder]})
                                 setOrder({...order,
                                     id: orderId,
                                     products: [...order.products, product],

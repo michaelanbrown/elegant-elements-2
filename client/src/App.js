@@ -156,7 +156,6 @@ function getOrders() {
         }
 })}
 
-
 function updateOrders(orderToUpdate) {
   const updatingOrders = orders.map((currentOrder) => {
       if (currentOrder.id === orderId) {
@@ -167,7 +166,7 @@ function updateOrders(orderToUpdate) {
   })
   setOrders(updatingOrders)
 }
-
+console.log(orderId)
 
   return (
     <main>
@@ -176,9 +175,9 @@ function updateOrders(orderToUpdate) {
         <Route path="/" element={<Welcome/>} />
         <Route path="/signup" element={<Signup customers={customers} setCustomers={setCustomers} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders}/>} />
         <Route path="/login" element={<Login setProductOrders={setProductOrders} setCustProducts={setCustProducts} setProductCount={setProductCount} getProducts={getProducts} getCustomers={getCustomers} getAddresses={getAddresses} getProductOrders={getProductOrders} getOrders={getOrders} setOrder={setOrder} setOrders={setOrders} setCustAddresses={setCustAddresses}/>} />
-        <Route path="/products" element={<Products products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
+        <Route path="/products" element={<Products setOrderId={setOrderId} orderId={orderId} products={products} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders}/>} />
         <Route path="/account/*" element={<Account addresses={addresses} setAddresses={setAddresses} custAddresses={custAddresses} setCustAddresses={setCustAddresses}/>} />
-        <Route path="/previous-personalizations" element={<PrevPersonalizations productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />
+        <Route path="/previous-personalizations" element={<PrevPersonalizations orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
         <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />

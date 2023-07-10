@@ -32,3 +32,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+#Encription key for rails
+#b44091c85eab619a694b0bef1f408513

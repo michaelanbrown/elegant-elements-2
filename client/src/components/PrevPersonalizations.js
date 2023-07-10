@@ -15,17 +15,23 @@ function PrevPersonalizations({ order, setOrder, orders, setOrders, productCount
         setCustomerProductOrders(currentCustomer.product_orders)
     }, [orders])
 
-    const productOrderMap = customerProductOrders ? customerProductOrders.map(prodOrder => <ProductsList key={prodOrder.id} orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} setOrders={setOrders} prodOrder={prodOrder} customerProductOrders={customerProductOrders} orders={orders} products={products}/>) : null
+    const productOrderMap = customerProductOrders ? customerProductOrders.filter(product => product.personalization.toLowerCase().indexOf(personalizationForm.toLowerCase()) > -1).map(prodOrder => <ProductsList key={prodOrder.id} orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} setOrders={setOrders} prodOrder={prodOrder} customerProductOrders={customerProductOrders} orders={orders} products={products}/>) : null
 
   return (
-    currentCustomer.product_orders && currentCustomer.product_orders.length !== 0 ? <div>
+    currentCustomer.product_orders && productOrderMap.length !== 0 ? <div>
         Search for a Personalization:
           <br/>
             <input type="text" name="personalizationValue" value={personalizationForm} onChange={handleChange} />
           <br/>
           <br/>
         {productOrderMap}
-    </div> : <div>No previous personalizations.</div>
+    </div> : <div>
+    Search for a Personalization:
+          <br/>
+            <input type="text" name="personalizationValue" value={personalizationForm} onChange={handleChange} />
+          <br/>
+          <br/>
+    No previous personalizations.</div>
   );
 }
 

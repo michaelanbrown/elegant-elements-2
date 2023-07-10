@@ -7,7 +7,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const navigate = useNavigate();
     const [viewOrderForm, setViewOrderForm] = useState(false)
-    const [errors, setErrors] = useState(false)
+    const [errors, setErrors] = useState([])
     const [customForm, setCustomForm] = useState({
         personalization: "",
         quantity: 1,
@@ -91,7 +91,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                                     }
                                 })
                             } else {
-                                res.json().then(json => setErrors([...errors, json.errors]))
+                                res.json().then(json => setErrors(...errors, json.errors))
                             }
                         })})
                 } else {
@@ -111,7 +111,7 @@ function AllProducts({ product, productCount, setProductCount, order, setOrder, 
                                     navigate(`/cart`)
                             }) 
                         } else {
-                            res.json().then(json => setErrors([...errors, json.errors]))
+                            res.json().then(json => setErrors(...errors, json.errors))
                         }
                     })
                 }})

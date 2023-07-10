@@ -46,8 +46,29 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                 orderAddressUpdate()
             }
         }
+
+        function orderAddressUpdate(e) {
+            e.preventDefault();
+            fetch(`orders/${order.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Accept" : "application/json"
+                },
+                body: JSON.stringify(addressData)
+            }).then((res) => {
+                if(res.ok){
+                  res.json()
+                  .then(order => {
+                    updateOrders(order)
+                    checkout(e)
+                    })
+                } else {
+                  res.json().then(json => setErrors(json.errors.filter(error => error !== 'Status You already have an order in progress')))
+                }
+        })}
         return (
-            <form onSubmit={checkout}>
+            <form onSubmit={orderAddressUpdate}>
                 <button type="submit" disabled={!stripe}>
                     Submit Order
                 </button>
@@ -87,24 +108,24 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         setOrders(deletingOrder)
     }
 
-        function orderAddressUpdate() {
-        fetch(`orders/${order.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type" : "application/json",
-                "Accept" : "application/json"
-            },
-            body: JSON.stringify(addressData)
-        }).then((res) => {
-            if(res.ok){
-              res.json()
-              .then(order => {
-                updateOrders(order)
-                })
-            } else {
-              res.json().then(json => console.log(json.errors))
-            }
-    })}
+    //     function orderAddressUpdate() {
+    //     fetch(`orders/${order.id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type" : "application/json",
+    //             "Accept" : "application/json"
+    //         },
+    //         body: JSON.stringify(addressData)
+    //     }).then((res) => {
+    //         if(res.ok){
+    //           res.json()
+    //           .then(order => {
+    //             updateOrders(order)
+    //             })
+    //         } else {
+    //           res.json().then(json => console.log(json.errors))
+    //         }
+    // })}
 
     function deleteOrder() {
         fetch(`orders/${order.id}`, {
@@ -137,8 +158,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                         </select>
                         <br/>
                     </form> 
-                        <br/>
-                        { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) :null }
+                        { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) : null }
                     <Elements stripe={stripePromise}>    
                         <CheckoutForm/>
                     </Elements>

@@ -51,7 +51,7 @@ function Login({ setOrder, setOrders, setCustAddresses, setCustProducts, setProd
                             }
                         }))})
                       } else {
-                        res.json().then(json => setErrors([json.error]))
+                        res.json().then(json => console.log(json.errors))
                       }
                     })
                     navigate(`/`)

@@ -43,7 +43,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 setProductAddition(0)
             })
             } else {
-              res.json().then(json => setErrors([json.errors]))
+              res.json().then(json => setErrors(json.errors))
             }
     })}
 
@@ -119,6 +119,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 <br/>
                 <button onClick={deleteProduct}>Remove Item</button>
                 <br/>
+                { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) : null }
                 <br/>
             </div> : null
         }</>

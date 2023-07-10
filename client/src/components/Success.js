@@ -38,7 +38,7 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
             setOrder([])
             })
         } else {
-          res.json().then(json => setErrors([json.errors]))
+          res.json().then(json => setErrors(json.errors))
         }
 })}
 

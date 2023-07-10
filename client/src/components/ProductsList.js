@@ -59,7 +59,7 @@ function ProductsList({ prodOrder, orderId, setOrderId, customerProductOrders, p
                                         navigate(`/cart`)
                                 })
                             } else {
-                                res.json().then(json => setErrors([...errors, json.errors]))
+                                res.json().then(json => setErrors(...errors, json.errors))
                             }
                         })})
                 } else {
@@ -79,7 +79,7 @@ function ProductsList({ prodOrder, orderId, setOrderId, customerProductOrders, p
                                     navigate(`/cart`)
                             }) 
                         } else {
-                            res.json().then(json => setErrors([...errors, json.errors]))
+                            res.json().then(json => setErrors(...errors, json.errors))
                         }
                     })
                 }})

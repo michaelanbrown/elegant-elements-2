@@ -5,7 +5,7 @@ import OrderProductCard from './OrderProductCard';
 
 function OrderCard({ orders, setOrders, order, products }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
-    const [errors, setErrors] = useState(false)
+    const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         status: "canceled"
     })
@@ -42,7 +42,7 @@ function OrderCard({ orders, setOrders, order, products }) {
                 updateOrders(order)
                 })
             } else {
-              res.json().then(json => setErrors([json.errors]))
+              res.json().then(json => setErrors(json.errors))
             }
     })}
 
@@ -62,7 +62,7 @@ function OrderCard({ orders, setOrders, order, products }) {
                 updateOrders(order)
                 })
             } else {
-              res.json().then(json => setErrors([json.errors]))
+              res.json().then(json => setErrors(json.errors))
             }
     })}
 
@@ -88,7 +88,7 @@ function OrderCard({ orders, setOrders, order, products }) {
             <button onClick={orderUpdate}>Cancel Order</button></div> : null}
             <br/>
             { currentCustomer.admin && order.status !== "fulfilled" && order.status !== "canceled" ? <button onClick={onFulfill}>Fulfill Order</button> : null }
-            { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) :null }
+            { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) : null }
         </div>
     )
 }

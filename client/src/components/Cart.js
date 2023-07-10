@@ -141,7 +141,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
     }
 
     return (
-        order.products ?
+        order.products.length !== 0 ?
         <div>
                 <h1>Current Cart</h1>
                     { productMap ? productMap : null }

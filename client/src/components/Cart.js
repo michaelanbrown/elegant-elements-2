@@ -84,7 +84,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
 
     function handleTypeChange(e) {
         setAddressData({
-            address_id: document.getElementById("addressSelected").value
+            address_id: e.target.value
         });
     }
 
@@ -153,7 +153,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                         Select the Shipping Address:
                         <br/>
                         <select className="addressselect" onChange={handleTypeChange}>
-                            <option key="blank" value={" "}>{"Select the shipping Address"}</option>
+                            <option key="blank" id="addressSelected" className="addressOption" value={" "}>{"Select the shipping Address"}</option>
                             {addressOptions}
                         </select>
                         <br/>

@@ -20,7 +20,6 @@ function Success({ orderId, orders, setOrders, setProductCount, setOrder }) {
     })
     setOrders(updatingOrders)
 }
-console.log(orders)
 
   function orderUpdate() {
     fetch(`orders/${orderId}`, {

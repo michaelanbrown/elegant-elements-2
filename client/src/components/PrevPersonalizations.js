@@ -5,6 +5,11 @@ import ProductsList from './ProductsList';
 function PrevPersonalizations({ order, setOrder, orders, setOrders, productCount, setProductCount, productOrders, products, orderId, setOrderId }) {
     const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
     const [customerProductOrders, setCustomerProductOrders] = useState([])
+    const [personalizationForm, setPersonalizationForm] = useState('')
+
+    function handleChange(e) {
+      setPersonalizationForm(e.target.value);
+    }
 
     useEffect(() => {
         setCustomerProductOrders(currentCustomer.product_orders)
@@ -14,6 +19,11 @@ function PrevPersonalizations({ order, setOrder, orders, setOrders, productCount
 
   return (
     currentCustomer.product_orders && currentCustomer.product_orders.length !== 0 ? <div>
+        Search for a Personalization:
+          <br/>
+            <input type="text" name="personalizationValue" value={personalizationForm} onChange={handleChange} />
+          <br/>
+          <br/>
         {productOrderMap}
     </div> : <div>No previous personalizations.</div>
   );

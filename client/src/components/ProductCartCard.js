@@ -7,6 +7,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
     const [keepChanges, setKeepChanges] = useState(false)
     const [currentProduct, setCurrentProduct] = useState(products.filter(product => product_order.product_id === product.id)[0])
     const [errors, setErrors] = useState([])
+    const [productAddition, setProductAddition] = useState(0)
 
     const [productUpdate, setProductUpdate] = useState({
         quantity: product_order.quantity
@@ -39,6 +40,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 setKeepChanges(false)
                 updateOrderProductOrders(updatedOrder)
                 setOrderTotalAddition(0)
+                setProductAddition(0)
             })
             } else {
               res.json().then(json => setErrors([json.errors]))
@@ -68,6 +70,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
         .then(res =>{
           if(res.ok){
             setOrderTotalAddition(orderTotalAddition - (currentProduct.price * product_order.quantity))
+            setProductAddition(productAddition - (currentProduct.price * product_order.quantity))
             setCurrentProduct([])
             setProductCount(productCount - 1)
             deletingProductOrder(product_order)
@@ -86,6 +89,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 quantity: quantity - 1
             })
             setOrderTotalAddition(orderTotalAddition - currentProduct.price)
+            setProductAddition(productAddition - currentProduct.price)
             setKeepChanges(true)
         }
     }
@@ -95,6 +99,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 quantity: quantity + 1
             })
             setOrderTotalAddition(currentProduct.price * quantity)
+            setProductAddition(currentProduct.price * quantity)
             setKeepChanges(true)
     }
 
@@ -109,7 +114,7 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
                 <p>Quantity: <input type="button" value="-" onClick={downClick} />
                     {" "}{quantity}{" "}
                 <input type="button" value="+" onClick={upClick}/></p>
-                <p>Item Total: ${(currentProduct.price * product_order.quantity) + orderTotalAddition}</p>
+                <p>Item Total: ${(currentProduct.price * product_order.quantity) + productAddition}</p>
                 { keepChanges ? <button onClick={quantityUpdate}>Keep Changes?</button> : null}
                 <br/>
                 <button onClick={deleteProduct}>Remove Item</button>

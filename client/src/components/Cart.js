@@ -31,8 +31,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         
         const stripe = useStripe();
 
-        const checkout = async(e) => {
-            e.preventDefault()
+        const checkout = async() => {
             const res = await fetch('/checkout', {
                 method: "POST",
                 headers: {
@@ -61,7 +60,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                   res.json()
                   .then(order => {
                     updateOrders(order)
-                    checkout(e)
+                    checkout()
                     })
                 } else {
                   res.json().then(json => setErrors(json.errors.filter(error => error !== 'Status You already have an order in progress')))

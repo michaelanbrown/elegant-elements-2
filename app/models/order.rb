@@ -13,9 +13,9 @@ class Order < ApplicationRecord
     private
 
     def order_cannot_update
-        return if (status == "in progress" || (status == "submitted" && Time.at(created_at.to_i) > Time.at(Time.now-1.day.to_i)))
+        return if (status == "in progress" || status == "submitted")
 
-        if (status == "submitted" && Time.at(created_at.to_i) < Time.at(Time.now-1.day.to_i))
+        if (status == "canceled" || status == "fulfilled")
             errors.add(:status, "The order cannot be updated at this time")
         end
     end

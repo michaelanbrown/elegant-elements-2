@@ -32,7 +32,7 @@ export default function NavBar ({ productCount, setProductCount, custAddresses }
             { currentCustomer ? null : <br/> }
             { currentCustomer ? <NavLink className="Navelements" to="/account">Account Information</NavLink> : null }
             { currentCustomer ? <br/> : null }
-            { currentCustomer ? <NavLink className="Navelements" to="/previous-personalizations">Previous Personalizations</NavLink> : null }
+            { currentCustomer ? <NavLink className="Navelements" to="/previous-products">Previous Products</NavLink> : null }
             { currentCustomer ? <br/> : null }
             { currentCustomer ? <NavLink className="Navelements" to="/previous-orders">Previous Orders</NavLink> : null }
             { currentCustomer ? <br/> : null }

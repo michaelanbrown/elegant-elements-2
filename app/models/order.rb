@@ -7,18 +7,9 @@ class Order < ApplicationRecord
 
     validates :shipping, presence: true, numericality: { equal_to: 7.00 }
     validates :status, presence: true
-    validate :order_cannot_update, on: [:update, :destroy]
     validate :in_progress, on: [:create]
 
     private
-
-    def order_cannot_update
-        return if (status == "in progress" || status == "submitted")
-
-        if (status == "canceled" || status == "fulfilled")
-            errors.add(:status, "The order cannot be updated at this time")
-        end
-    end
 
     def in_progress
         orders = Order.where(customer_id: customer_id)

@@ -48,20 +48,11 @@ function ProductCartCard({ product_order, products, order, setOrder, custProduct
     })}
 
     function deletingProductOrder(product_order) {
-        const deletingProductOrder = order.product_orders.filter((prod) => {
-            if (prod.id !== product_order.id) {
-                return product_order
-            }
-        })
-        setOrder(deletingProductOrder)
-        const deletingProductOrderfromCustomer = currentCustomer.product_orders.filter((prod) => {
-            if (prod.id !== product_order.id) {
-                return product_order
-            }
-        })
+        const deletingProductOrder = order.product_orders.filter(prod => prod.id !== product_order.id)
+        setOrder({...order, product_orders: deletingProductOrder})
+        const deletingProductOrderfromCustomer = currentCustomer.product_orders.filter(prod => prod.id !== product_order.id)
         setCurrentCustomer({...currentCustomer, product_orders: deletingProductOrderfromCustomer})
     }
-
 
     function deleteProduct() {
         fetch(`product_orders/${product_order.id}`, {

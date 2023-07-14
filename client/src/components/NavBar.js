@@ -18,6 +18,8 @@ export default function NavBar ({ productCount, setProductCount, custAddresses }
           }
         })
       }
+      console.log(custAddresses.length)
+      console.log(custAddresses)
 
     return (
       currentCustomer === false || (currentCustomer !== false && custAddresses.length !== 0 && custAddresses !== undefined) ? <nav className="NavBar">

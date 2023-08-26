@@ -4,7 +4,7 @@ import ProductCartCard from './ProductCartCard';
 import { Elements, useStripe } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 
-function Cart({ stripePromise, products, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
+function Cart({ stripePromise, products, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount, fromCart, setFromCart }) {
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
     const navigate = useNavigate();
     const [errors, setErrors] = useState(false)

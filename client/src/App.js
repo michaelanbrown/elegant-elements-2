@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Form } from "react-router-dom";
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from './components/context/User';
 import Header from './components/Header';
@@ -19,6 +19,7 @@ import PrevPersonalizations from './components/PrevPersonalizations';
 
 function App() {
   const { currentCustomer, setCurrentCustomer } = useContext(UserContext);
+  const [fromCart, setFromCart] = useState(false)
   const [customers, setCustomers] = useState([])
   const [addresses, setAddresses] = useState([])
   const [errors, setErrors] = useState([])
@@ -131,8 +132,8 @@ function App() {
         <Route path="/previous-products" element={<PrevPersonalizations orderId={orderId} setOrderId={setOrderId} productCount={productCount} setProductCount={setProductCount} order={order} setOrder={setOrder} orders={orders} setOrders={setOrders} productOrders={productOrders} products={products}/>} />
         <Route path="/previous-orders" element={<PreviousOrders orders={orders} setOrders={setOrders} products={products}/>} />
         {currentCustomer.admin ? <Route path="/all-orders" element={<AllOrders orders={orders} setOrders={setOrders} products={products}/>} /> : null}
-        <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} addresses={addresses} setAddresses={setAddresses}/>} />
-        <Route path="/cart" element={<Cart products={products} stripePromise={stripePromise} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
+        <Route path="/new-address" element={<CreateAddress custAddresses={custAddresses} setCustAddresses={setCustAddresses} setFromCart={setFromCart} fromCart={fromCart} addresses={addresses} setAddresses={setAddresses}/>} />
+        <Route path="/cart" element={<Cart products={products} setFromCart={setFromCart} fromCart={fromCart} stripePromise={stripePromise} custAddresses={custAddresses} setCustAddresses={setCustAddresses} order={order} setOrder={setOrder} productCount={productCount} setProductCount={setProductCount} orders={orders} setOrders={setOrders} productOrders={productOrders} setProductOrders={setProductOrders} custProducts={custProducts} setCustProducts={setCustProducts}/>} />
         <Route path="/success" element={<Success setProductCount={setProductCount} setOrder={setOrder} orderId={orderId} orders={orders} setOrders={setOrders}/>} />
         <Route path="/cancel" element={<Cancel/>} />
       </Routes>

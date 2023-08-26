@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
 
-function CreateAddress({ addresses, setAddresses, custAddresses, setCustAddresses }){
+function CreateAddress({ addresses, setAddresses, custAddresses, setCustAddresses, fromCart, setFromCart }){
     const [errors, setErrors] = useState([])
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

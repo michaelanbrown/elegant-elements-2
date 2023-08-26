@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Cart({ stripePromise, products, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
+    const navigate = useNavigate();
     const [errors, setErrors] = useState(false)
     const [orderId, setOrderId] = useState(null)
     const [selectAddress, setSelectAddress] = useState(false)
@@ -146,7 +147,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
     }
 
     function addAddress() {
-
+        navigate(`/new-address/`)
     }
 
     return (

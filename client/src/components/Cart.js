@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../App.css'
 import ProductCartCard from './ProductCartCard';
 import { Elements, useStripe } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom';
 
 function Cart({ stripePromise, products, custAddresses, order, setOrder, orders, custProducts, setCustProducts, setOrders, productOrders, productCount, setProductCount }) {
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
@@ -144,6 +145,9 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         setSelectAddress(!selectAddress)
     }
 
+    function addAddress() {
+
+    }
 
     return (
         order && order.products && order.products.length !== 0 ?
@@ -154,7 +158,8 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                     <br/>
                     <p>Flat Rate Shipping: ${ order ? order.shipping : null}</p>
                     <p>Order Total: ${ order ? order.total + orderTotalAddition : null}</p>
-                    <button onClick={selectAddressClick}>Select the Shipping Address:</button>
+                    <button onClick={selectAddressClick}>Select the Shipping Address:</button>{" "}
+                    <button onClick={addAddress}>Add a New Shipping Address:</button>
                     {selectAddress ? <form>
                         <select className="addressselect" onChange={handleTypeChange}>
                             <option key="blank" id="addressSelected" className="addressOption" value={" "}>{"Select the shipping Address"}</option>

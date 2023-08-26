@@ -7,6 +7,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
     const [orderTotalAddition, setOrderTotalAddition] = useState(0)
     const [errors, setErrors] = useState(false)
     const [orderId, setOrderId] = useState(null)
+    const [selectAddress, setSelectAddress] = useState(false)
     const [addressData, setAddressData] = useState({
         address_id: ""
     })
@@ -139,6 +140,10 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
         })
     }
 
+    function selectAddressClick() {
+
+    }
+
     return (
         order && order.products && order.products.length !== 0 ?
         <div>
@@ -149,7 +154,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                     <p>Flat Rate Shipping: ${ order ? order.shipping : null}</p>
                     <p>Order Total: ${ order ? order.total + orderTotalAddition : null}</p>
                     <form>
-                        Select the Shipping Address:
+                        <button>Select the Shipping Address:</button>
                         <br/>
                         <select className="addressselect" onChange={handleTypeChange}>
                             <option key="blank" id="addressSelected" className="addressOption" value={" "}>{"Select the shipping Address"}</option>

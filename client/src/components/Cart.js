@@ -147,6 +147,7 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
     }
 
     function addAddress() {
+        setFromCart(true)
         navigate(`/new-address/`)
     }
 

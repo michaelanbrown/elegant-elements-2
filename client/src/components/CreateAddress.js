@@ -43,7 +43,8 @@ function CreateAddress({ addresses, setAddresses, custAddresses, setCustAddresse
                 res.json().then(address => {
                     setAddresses([...addresses, address])
                     setCustAddresses([...custAddresses, address])
-                    navigate(`/account`)
+                    fromCart ? navigate(`/cart`) : navigate(`/account`)
+                    setFromCart(false)
                 })
             } else {
                 res.json().then(json => setErrors(json.errors))

@@ -155,13 +155,13 @@ function Cart({ stripePromise, products, custAddresses, order, setOrder, orders,
                     <p>Flat Rate Shipping: ${ order ? order.shipping : null}</p>
                     <p>Order Total: ${ order ? order.total + orderTotalAddition : null}</p>
                     <button onClick={selectAddressClick}>Select the Shipping Address:</button>
-                    <form>
+                    {selectAddress ? <form>
                         <select className="addressselect" onChange={handleTypeChange}>
                             <option key="blank" id="addressSelected" className="addressOption" value={" "}>{"Select the shipping Address"}</option>
                             {addressOptions}
                         </select>
                         <br/>
-                    </form> 
+                    </form> : null}
                         { errors ? errors.map(error => <div className='error' key={error}>{error}</div>) : null }
                     <Elements stripe={stripePromise}>    
                         <CheckoutForm/>
